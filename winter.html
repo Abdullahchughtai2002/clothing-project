@@ -5,7 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	 <link rel="stylesheet" href="style.css"> 
     <title>BAAZS</title>
+    <script type="text/javascript">
+        let cart = {};
+        function addToCart(itemName, itemPrice){
+            if(cart[itemName]){
+                cart[itemName].quantity +=1;
+            }else{
+                cart[itemName] ={
+                    price : itemPrice,
+                    quantity : 1
+                };
+            }
+            updateCartDisplay();
+        }
+        function updateCartDisplay(){
+            let cartElement = document.getElementById('cart');
+            let totalElement = document.getElementById('total');
 
+            let sum = 0;
+            cartElement.innerHTML = '';
+
+            for(let itemName in cart){
+                if(cart.hasOwnProperty(itemName)){
+                    let item = cart[itemName];
+                    let itemTotalPrice = item.price * item.quantity;
+
+                    let itemElement = document.createElement('div');
+                    itemElement.textContent = `${itemName} = ${item.price}  x ${item.quantity} - $${itemTotalPrice}`;
+
+                    cartElement.appendChild(itemElement);
+
+                    sum += itemTotalPrice;                    
+                }
+            }
+            totalElement.textContent = `Total = $${sum}`;
+        }
+    </script>
     
 
   <link rel="stylesheet"
@@ -63,6 +98,7 @@
                 </div>
                 <div class="price">
                     <button class="open-btn"><a href="winter1.html">OPEN</a></button>
+                    <button class="open-btn" onclick="addToCart('Long coat', 6000)">Add To Cart</button>
                     <br>
                     <h4>Long coat</h4>
                     <p>6,000</p>
@@ -85,6 +121,7 @@
                 </div>
                 <div class="price">
                     <button class="open-btn"><a href="winter2.html">OPEN</a></button>
+                    <button class="open-btn" onclick="addToCart('Zara Sweater', 6500)">Add To Cart</button>
                     <h4>Zara knitted Sweater</h4>
                     <p>6,500</p>
                 </div>
@@ -107,6 +144,7 @@
                         </div>
                         <div class="price">
                             <button class="open-btn"><a href="winter3.html">OPEN</a></button>
+                            <button class="open-btn" onclick="addToCart('Baggy Hoodies', 4500)">Add To Cart</button>
                             <h4>Baggy Hoodies</h4>
                             <p>4,500</p>
                         </div>   
@@ -128,6 +166,7 @@
                             </div>
                             <div class="price">
                                 <button class="open-btn"><a href="winter4.html">OPEN</a></button>
+                                <button class="open-btn" onclick="addToCart('Padded jackets', 8000)">Add To Cart</button>
                                 <h4>Padded jackets</h4>
                                 <p>8,000</p>
                             </div>
@@ -149,7 +188,8 @@
                                 </div>
                                 <div class="price">
                                     <button class="open-btn"><a href="winter5.html">OPEN</a></button>
-                                    <h4>Woal Long Coat</h4>
+                                    <button class="open-btn" onclick="addToCart('Wool Long Coat', 8500)">Add To Cart</button>
+                                    <h4>Wool Long Coat</h4>
                                     <p>8,500</p>
                                 </div>
                             </div>
@@ -170,6 +210,7 @@
                                     </div>
                                     <div class="price">
                                         <button class="open-btn"><a href="winter6.html">OPEN</a></button>
+                                        <button class="open-btn" onclick="addToCart('winter shawls', 4999)">Add To Cart</button>
                                         <h4>winter shawls</h4>
                                         <p>4,999</p>
                                     </div>    
@@ -178,6 +219,8 @@
         </div>
 
     </section>
+    <div id="cart"></div>
+    <div id="total"></div>
     <section class="contact">
         <div class="contact-info">
             <div class="first-info">

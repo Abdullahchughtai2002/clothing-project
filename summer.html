@@ -6,7 +6,42 @@
 	 <link rel="stylesheet" href="style.css"> 
     <title>BAAZS</title>
 
-    
+    <script type="text/javascript">
+        let cart = {};
+        function addToCart(itemName, itemPrice){
+            if(cart[itemName]){
+                cart[itemName].quantity +=1;
+            }else{
+                cart[itemName] ={
+                    price : itemPrice,
+                    quantity : 1
+                };
+            }
+            updateCartDisplay();
+        }
+        function updateCartDisplay(){
+            let cartElement = document.getElementById('cart');
+            let totalElement = document.getElementById('total');
+
+            let sum = 0;
+            cartElement.innerHTML = '';
+
+            for(let itemName in cart){
+                if(cart.hasOwnProperty(itemName)){
+                    let item = cart[itemName];
+                    let itemTotalPrice = item.price * item.quantity;
+
+                    let itemElement = document.createElement('div');
+                    itemElement.textContent = `${itemName} = ${item.price}  x ${item.quantity} - $${itemTotalPrice}`;
+
+                    cartElement.appendChild(itemElement);
+
+                    sum += itemTotalPrice;                    
+                }
+            }
+            totalElement.textContent = `Total = $${sum}`;
+        }
+    </script>
 
   <link rel="stylesheet"
   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -85,6 +120,7 @@
                 </div>
                 <div class="price">
                     <button class="open-btn"><a href="p2.html">OPEN</a></button>
+                    <button class="open-btn" onclick="addToCart('Maria.B ', 6000)">Add To Cart</button>
                     <h4>Maria.B New Arrival</h4>
                     <p>6,000</p>
                 </div>
@@ -107,6 +143,7 @@
                         </div>
                         <div class="price">
                             <button class="open-btn"><a href="p3.html">OPEN</a></button>
+                            <button class="open-btn" onclick="addToCart('LimeLight', 5500)">Add To Cart</button>
                             <h4>LimeLight New Arrival</h4>
                             <p>5,500</p>
                         </div>   
@@ -128,6 +165,7 @@
                             </div>
                             <div class="price">
                                 <button class="open-btn"><a href="p4.html">OPEN</a></button>
+                                <button class="open-btn" onclick="addToCart('J. New Arrival', 8000)">Add To Cart</button>
                                 <h4>J. New Arrival</h4>
                                 <p>8,000</p>
                             </div>
@@ -149,6 +187,7 @@
                                 </div>
                                 <div class="price">
                                     <button class="open-btn"><a href="p5.html">OPEN</a></button>
+                                    <button class="open-btn" onclick="addToCart('Long coat', 6000)">Add To Cart</button>
                                     <h4>Bonanza Satrangi New Arrival</h4>
                                     <p>4,500</p>
                                 </div>
@@ -178,6 +217,8 @@
         </div>
 
     </section>
+    <div id="cart"></div>
+    <div id="total"></div>
     <section class="contact">
         <div class="contact-info">
             <div class="first-info">
